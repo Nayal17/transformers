@@ -288,7 +288,7 @@ class SwinEmbeddings(nn.Module):
         self,
         pixel_values: Optional[torch.FloatTensor],
         bool_masked_pos: Optional[torch.BoolTensor] = None,
-        interpolate_pos_encoding: bool = False,
+        interpolate_pos_encoding: bool = True,
     ) -> Tuple[torch.Tensor]:
         _, num_channels, height, width = pixel_values.shape
         embeddings, output_dimensions = self.patch_embeddings(
@@ -346,7 +346,7 @@ class SwinPatchEmbeddings(nn.Module):
         return pixel_values
 
     def forward(
-        self, pixel_values: Optional[torch.FloatTensor], interpolate_pos_encoding: bool = False
+        self, pixel_values: Optional[torch.FloatTensor], interpolate_pos_encoding: bool = True
     ) -> Tuple[torch.Tensor, Tuple[int]]:
         _, num_channels, height, width = pixel_values.shape
         if num_channels != self.num_channels:
@@ -1031,7 +1031,7 @@ class SwinModel(SwinPreTrainedModel):
         head_mask: Optional[torch.FloatTensor] = None,
         output_attentions: Optional[bool] = None,
         output_hidden_states: Optional[bool] = None,
-        interpolate_pos_encoding: bool = False,
+        interpolate_pos_encoding: bool = True,
         return_dict: Optional[bool] = None,
     ) -> Union[Tuple, SwinModelOutput]:
         r"""
@@ -1127,7 +1127,7 @@ class SwinForMaskedImageModeling(SwinPreTrainedModel):
         head_mask: Optional[torch.FloatTensor] = None,
         output_attentions: Optional[bool] = None,
         output_hidden_states: Optional[bool] = None,
-        interpolate_pos_encoding: bool = False,
+        interpolate_pos_encoding: bool = True,
         return_dict: Optional[bool] = None,
     ) -> Union[Tuple, SwinMaskedImageModelingOutput]:
         r"""
@@ -1251,7 +1251,7 @@ class SwinForImageClassification(SwinPreTrainedModel):
         labels: Optional[torch.LongTensor] = None,
         output_attentions: Optional[bool] = None,
         output_hidden_states: Optional[bool] = None,
-        interpolate_pos_encoding: bool = False,
+        interpolate_pos_encoding: bool = True,
         return_dict: Optional[bool] = None,
     ) -> Union[Tuple, SwinImageClassifierOutput]:
         r"""
